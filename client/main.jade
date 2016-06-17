@@ -1,0 +1,42 @@
+body
+    +chat
+
+template(name='message')
+    div(class=messageCssClass)
+        .direct-chat-info.clearfix
+            span.direct-chat-name.pull-left {{ sender }}
+            span.direct-chat-timestamp.pull-right {{ formatAgo createdAt }}
+        img.direct-chat-img(src='http://bootdey.com/img/Content/user_1.jpg', alt='Message User Image')
+        .direct-chat-text
+            | {{ message }}
+
+template(name='chat')
+    .container-fluid
+        .row.bootstrap.snippets
+            .col-md-3.col-xs-12(style='padding-left: 0px; padding-right: 0px;')
+                .box.box-success.direct-chat.direct-chat-success
+                    .box-header.with-border
+                        h3.box-title DSU web Chat
+                        .box-tools.pull-right
+                          +loginButtons align='right'
+                    .box-body
+                        .direct-chat-messages
+                            // Message. Default to the left
+                           each messages
+                            +message
+                        .direct-chat-contacts
+                            ul.contacts-list
+                                li
+                                    a(href='#')
+                                        img.contacts-list-img(src='http://bootdey.com/img/Content/user_1.jpg')
+                                        .contacts-list-info
+                                            span.contacts-list-name
+                                                | Count Dracula
+                                                small.contacts-list-date.pull-right 2/28/2015
+                                            span.contacts-list-msg How have you been? I was...
+                    .box-footer
+                        form#messageForm(action='#', method='post')
+                            .input-group
+                                input#messageInput.form-control(type='text', name='message', placeholder='메세지 입력')
+                                span.input-group-btn
+                                    button.btn.btn-success.btn-flat(type='submit') 보내기
